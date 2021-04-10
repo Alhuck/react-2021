@@ -2,6 +2,7 @@ import {React, useState, Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+import Radium, {StyleRoot} from 'radium';
 
 
 class App extends Component {
@@ -60,10 +61,23 @@ class App extends Component {
   render () {
 
     const btnStyle = {
-      backgroundColor : 'white',
+      backgroundColor : 'green',
+      color: 'white',
       border : '1px solid black',
       cursor: 'pointer',
-      //width: '50px'
+      ':hover': {
+        backgroundColor : 'lightgreen'
+      }
+    }
+
+    const paraStyles = [];
+
+    if(this.state.persons.length <=2) {
+      paraStyles.push('red');
+    }
+
+    if(this.state.persons.length <=1) {
+      paraStyles.push('bold');
     }
 
     let showPersonsArr = null;
@@ -83,21 +97,29 @@ class App extends Component {
           })}
         </div>
       
+      btnStyle.backgroundColor = "red"
+      btnStyle[':hover'] = {
+        backgroundColor: 'salmon'
+      }
     }
 
     return (
-      <div className="App">
-        
-        <h1>Im a React App</h1>
-        
-        <button style={btnStyle} onClick={this.togglePersons}>Toggle Person</button>
-        {showPersonsArr}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          
+          <h1>Im a React App</h1>
+          
+          <button style={btnStyle} onClick={this.togglePersons}>Toggle Person</button>
+          <p className={paraStyles.join(' ')}>This is really working!</p>
+          {showPersonsArr}
+        </div>
+      </StyleRoot>
+      
     );
   }
 }
 
-export default App;
+export default Radium(App);
 
 
 
