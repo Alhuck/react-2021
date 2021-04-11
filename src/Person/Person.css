@@ -1,6 +1,10 @@
-.Person {
+/* .Person {
     border : 1px solid #d2cfcf;
     margin : 16px auto;
     padding : 16px;
     text-align: center;
 }
+
+'@media (min-width: 500px)' : {
+    width: '300px',
+} */

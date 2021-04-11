@@ -1,9 +1,24 @@
-import {React, useState, Component} from 'react';
-import logo from './logo.svg';
+import {React, Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium, {StyleRoot} from 'radium';
+import styled from 'styled-components';
 
+const StyledButton = styled.button`
+
+    background-color: ${props => props.alt ? 'red' : 'green'};
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${props => props.alt ? 'salmon': 'lightgreen'};
+    }
+`;
+
+const ParaStyles = styled.p`
+    color : ${props => props.paraAlt <=2 ? 'red': null};
+    font-weight : ${props => props.paraAlt <=1 ? 'bold': null};
+`;
 
 class App extends Component {
 
@@ -60,25 +75,25 @@ class App extends Component {
   
   render () {
 
-    const btnStyle = {
-      backgroundColor : 'green',
-      color: 'white',
-      border : '1px solid black',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor : 'lightgreen'
-      }
-    }
+    // const btnStyle = {
+    //   backgroundColor : 'green',
+    //   color: 'white',
+    //   border : '1px solid black',
+    //   cursor: 'pointer',
+    //   ':hover': {
+    //     backgroundColor : 'lightgreen'
+    //   }
+    // }
 
-    const paraStyles = [];
+    // const paraStyles = [];
 
-    if(this.state.persons.length <=2) {
-      paraStyles.push('red');
-    }
+    // if(this.state.persons.length <=2) {
+    //   paraStyles.push('red');
+    // }
 
-    if(this.state.persons.length <=1) {
-      paraStyles.push('bold');
-    }
+    // if(this.state.persons.length <=1) {
+    //   paraStyles.push('bold');
+    // }
 
     let showPersonsArr = null;
 
@@ -97,29 +112,27 @@ class App extends Component {
           })}
         </div>
       
-      btnStyle.backgroundColor = "red"
-      btnStyle[':hover'] = {
-        backgroundColor: 'salmon'
-      }
+      // btnStyle.backgroundColor = "red"
+      // btnStyle[':hover'] = {
+      //   backgroundColor: 'salmon'
+      // }
     }
 
     return (
-      <StyleRoot>
         <div className="App">
           
           <h1>Im a React App</h1>
           
-          <button style={btnStyle} onClick={this.togglePersons}>Toggle Person</button>
-          <p className={paraStyles.join(' ')}>This is really working!</p>
+          <StyledButton alt={this.state.showPersons} onClick={this.togglePersons}>Toggle Person</StyledButton>
+          <ParaStyles paraAlt={this.state.persons.length}>This is really working!</ParaStyles>
           {showPersonsArr}
         </div>
-      </StyleRoot>
-      
+    
     );
   }
 }
 
-export default Radium(App);
+export default App;
 
 
 
