@@ -1,24 +1,6 @@
 import {React, Component} from 'react';
-import './App.css';
+import classes from './App.module.css';
 import Person from './Person/Person';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-
-    background-color: ${props => props.alt ? 'red' : 'green'};
-    color: white;
-    border: 1px solid black;
-    cursor: pointer;
-
-    &:hover {
-      background-color: ${props => props.alt ? 'salmon': 'lightgreen'};
-    }
-`;
-
-const ParaStyles = styled.p`
-    color : ${props => props.paraAlt <=2 ? 'red': null};
-    font-weight : ${props => props.paraAlt <=1 ? 'bold': null};
-`;
 
 class App extends Component {
 
@@ -75,27 +57,18 @@ class App extends Component {
   
   render () {
 
-    // const btnStyle = {
-    //   backgroundColor : 'green',
-    //   color: 'white',
-    //   border : '1px solid black',
-    //   cursor: 'pointer',
-    //   ':hover': {
-    //     backgroundColor : 'lightgreen'
-    //   }
-    // }
-
-    // const paraStyles = [];
-
-    // if(this.state.persons.length <=2) {
-    //   paraStyles.push('red');
-    // }
-
-    // if(this.state.persons.length <=1) {
-    //   paraStyles.push('bold');
-    // }
-
+    const paraStyles = [];
     let showPersonsArr = null;
+    let btnStyle = '';
+
+
+    if(this.state.persons.length <=2) {
+      paraStyles.push(classes.red);
+    }
+
+    if(this.state.persons.length <=1) {
+      paraStyles.push(classes.bold);
+    }
 
     if(this.state.showPersons) {
       showPersonsArr = 
@@ -111,20 +84,17 @@ class App extends Component {
             </Person>)
           })}
         </div>
-      
-      // btnStyle.backgroundColor = "red"
-      // btnStyle[':hover'] = {
-      //   backgroundColor: 'salmon'
-      // }
+     
+      btnStyle = classes.btnRed;
     }
 
     return (
-        <div className="App">
+        <div className={classes.App}>
           
           <h1>Im a React App</h1>
           
-          <StyledButton alt={this.state.showPersons} onClick={this.togglePersons}>Toggle Person</StyledButton>
-          <ParaStyles paraAlt={this.state.persons.length}>This is really working!</ParaStyles>
+          <button className={btnStyle} onClick={this.togglePersons}>Toggle Person</button>
+          <p className={paraStyles.join(" ")}>This is really working!</p>
           {showPersonsArr}
         </div>
     
@@ -133,43 +103,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-
-
-// const [this.state, personsSetState] = useState({
-//   persons: [
-//     { name: "Alhuck", age: 29 },
-//     {
-//       name: "Sindhura",
-//       age: 26
-//     },
-//     {
-//       name: "Senthil",
-//       age: 29
-//     }
-//   ]
-// });
-
-// const [otherState, othersSetState] = useState({ otherState: "Some Other Value" });
-
-// const switchName = () => {
-
-//   personsSetState({
-//     persons: [
-//       { name: "Alhuck Bhavani Abdulkaffar", age: 29 },
-//       {
-//         name: "Sindhura Movva",
-//         age: 26
-//       },
-//       {
-//         name: "SenthilKumar P B",
-//         age: 29
-//       }
-//     ]
-//   })
-
-//   othersSetState('New Value');
-
-//   console.log(this.state, otherState);
-// }
